@@ -294,7 +294,7 @@ class DistShap(object):
                 np.save(os.path.join(self.directory, 'loo.npy'), self.loo_vals)
             print('LOO values calculated!')
         iters = 0
-        while True:
+        while dist_run or tmc_run:
             if dist_run:
                 if error(self.results['mem_dist']) < err:
                     dist_run = False
@@ -306,10 +306,10 @@ class DistShap(object):
                         sources=self.sources,
                         alpha=alpha
                     )
-                    self.vals_dist = np.mean(self.results['mem_tmc'], 0)
+                    self.vals_dist = np.mean(self.results['mem_dist'], 0)
             if tmc_run:
                 if error(self.results['mem_tmc']) < err:
-                    dist_run = False
+                    tmc_run = False
                     print('Data Shapley has converged!')
                 else:
                     self._tmc_shap(
