@@ -62,7 +62,7 @@ class DistShap(object):
         self.metric = metric
         self.directory = directory
         self.hidden_units = kwargs.get('hidden_layer_sizes', [])
-        if self.model_family is 'logistic':
+        if self.model_family == 'logistic':
             self.hidden_units = []
         if self.directory is not None:
             if overwrite and os.path.exists(directory):

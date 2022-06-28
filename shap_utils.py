@@ -206,10 +206,10 @@ def label_generator(problem, X, param, difficulty=1, beta=None, important=None):
     funct = lambda x: (np.sum(beta * generate_features(
         x[:, important_dims], difficulty), -1) - mean) / std
     y_true = (y_true - mean) / std
-    if problem is 'classification':
+    if problem == 'classification':
         y_true = logistic.cdf(param * y_true)
         y = (np.random.random(X.shape[0]) < y_true).astype(int)
-    elif problem is 'regression':
+    elif problem == 'regression':
         y = y_true + param * np.random.normal(size=len(y_true))
     else:
         raise ValueError('Invalid problem specified!')
